@@ -1,0 +1,54 @@
+<% include ./partials/header %>
+
+<div class="ui borderless menu" id="top-nav">
+    <div class="ui container">
+        <a href="/" class="item">Home</a>
+        <a href="#" class="item">About</a>
+        <a href="/posts/new" class="item">New Post</a>
+        <div class="ui dropdown item">
+            <div class="text">Topics</div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <a href="#" class="item">Entrepreneurship</a>
+                <a href="#" class="item">Education</a>
+                <a href="#" class="item">Tech</a>
+            </div>
+        </div>
+        <a href="#" class="item">Resources</a>
+        <a href="#" class="item">Partners</a>
+        <a href="#" class="item">Contact</a>
+        <div class="right menu">
+            <div class="ui transparent left icon input">
+                <input type="search" name="search" placeholder="Search posts">
+                <i class="search icon"></i>
+            </div>
+            <a href="#" class="item">Login</a>
+        </div>
+    </div>
+</div>
+
+<div class="ui container main-content">
+    <div class="ui grid">
+        <div class="stackable three column row">
+            <%for(let i=posts.length-1;i>=0;i--){%>
+                <article class="column item">
+                    <div class="image">
+                        <img src="<%=posts[i].image%>" class="ui rounded image">
+                    </div>
+                    <div class="content index-content">
+                        <h2 class="header index-post-title"><a href="/posts/<%=posts[i]._id%>" class="index-post-title"><%=posts[i].title%></a></h2>
+                        <div class="meta index-created-date">
+                            <span><em><%=posts[i].created.toDateString()%></em></span>
+                        </div>
+                    </div>
+                    <div class="description index-description">
+                        <p class="post-summary-index"><%-posts[i].summary%></p>
+                    </div>
+                </article>
+            <%}%>
+        </div>
+    </div>
+</div><!--End of ui container-->
+
+
+<% include ./partials/footer %>

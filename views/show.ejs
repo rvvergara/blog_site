@@ -1,0 +1,53 @@
+<% include ./partials/header %>
+
+<div class="ui container main-content">
+    <div class="ui grid">
+        <div class="stackable two column row">
+            <div class="column">
+                <h1 class="ui header" id="show-header"><%= post.title %></h1>
+                <div class="ui top attached">
+                    <div class="content">
+                        <% let createdMinutes = post.created.getMinutes()%>
+                        <%if(createdMinutes<10){%>
+                            <%createdMinutes = "0"+createdMinutes%>
+                        <%}%>
+                        <% let editedMinutes = post.edited.getMinutes()%>
+                        <%if(editedMinutes<10){%>
+                            <%editedMinutes = "0"+editedMinutes%>
+                        <%}%>
+                        <span>Created: <em><%=post.created.toDateString()%>, <%=post.created.getHours()%>:<%=createdMinutes%></em></span>
+                        <span><a href="/posts/<%=post._id%>/edit"><i class="pencil icon"></i></a></span>
+                        <span>Last edited: <em><%=post.edited.toDateString()%>, <%=post.edited.getHours()%>:<%=editedMinutes%></em></span>
+                    </div>
+                    <div class="content show-summary">
+                        <p class="post-summary-show"><%=post.summary%></p>
+                    </div>
+                </div>                
+            </div>
+            <div class="column">
+                <div class="ui top attached">
+                    <div class="item">
+                        <img src="<%=post.image%>" class="ui centered rounded image">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="one column row">
+            <div class="ui main text container">
+                <div class="column">
+                    <div class="ui top attached">
+                        <div class="description post-content">
+                            <%-post.content%>
+                        </div>
+                    </div>
+                </div>
+                <div class="show-buttons">
+                    <a href="/posts/<%=post._id%>/edit" class="ui basic violet button">Edit</a>
+                    <form action="/posts/<%=post._id%>?_method=DELETE" method="POST" class="delete-button"><button class="ui basic red button" id="deleteButton">Delete</button></form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ./partials/footer %>

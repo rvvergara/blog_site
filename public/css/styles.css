@@ -1,0 +1,74 @@
+body,html{
+    font-family: 'Roboto', sans-serif;
+    height:100%;
+}
+
+#site-header{
+    text-align: center;
+    padding-top: 20px;
+}
+
+#site-header #main-headline{
+    max-width: 30%;
+    display: inline-block;
+    color: #003636;
+    font-size: 2.0em;
+}
+
+.index-post-title{
+    color:#003636;
+    margin-bottom: 0;
+    margin-top: 20px;
+}
+
+.ui.menu{
+    top: 4.0em;
+    font-size: 1.16em;
+    color:#3b4451;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    z-index: 10;
+}
+
+.main-content{
+    margin-top: 2.0em;
+}
+
+#show-header{
+    font-size: 3em;
+}
+
+.post-content{
+    font-size: 1.25em;
+}
+
+.post-summary-show{
+    font-size: 1.5em;
+    margin-top: 2em;
+}
+
+.post-summary-show, .post-summary-index{
+    color:#556353;
+}
+
+.post-summary-index{
+    font-size: 1.2em;
+}
+
+.index-content{
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.show-summary, .show-buttons {
+    padding-top: 30px; 
+}
+
+.delete-button{
+    display: inline;
+}
+
+.index-description{
+    margin-bottom: 20px;
+}
