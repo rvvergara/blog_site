@@ -7,8 +7,8 @@ let     postSchema      = new mongoose.Schema(
        image:      String,
        summary:    String,
        content:    String,
-       created:    {type: Date, default:                Date.now},
-       edited:     {type: Date, default:                Date.now},
+       created:    {type: Date, default:  Date.now},                                                          
+       edited:     {type: Date, default:  Date.now},                                                          
        comments:    [
                         {
                             type: mongoose.Schema.Types.ObjectId,
