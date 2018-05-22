@@ -1,0 +1,15 @@
+<% include ../partials/header %>
+
+<div class="ui container main-content">
+    <h1 class="ui huge header">
+        Comment on <%=post.title%>
+    </h1>
+    <form action="/posts/<%=post._id%>" method="POST" class="ui form">
+        <div class="field"><input type="text" name="comment[author]" placeholder="Commenter"></div>
+        <div class="field"><textarea name="comment[text]" cols="10" rows="10" placeholder="Write a comment..."></textarea></div>
+        <input type="submit" value="Add Comment" class="ui basic blue button">
+        <a href="/posts/<%=post._id%>" class="ui basic green button">Cancel</a>
+    </form>    
+</div>
+
+<% include ../partials/footer %>
