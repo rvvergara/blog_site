@@ -18,7 +18,8 @@ app.use(expressSanitizer());
 app.use(express.static("public"));
 app.set("view engine","ejs");
 
-seedDB(); //To remove old data and initialize new - for testing
+// seedDB(); 
+//To remove old data and initialize new - for testing
 
 // ROUTES:
 

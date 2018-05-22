@@ -72,3 +72,13 @@ body,html{
 .index-description{
     margin-bottom: 20px;
 }
+
+.ui.main.text.container>.ui.segment{
+    border: 0;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.ui.segment .ui.segment{
+    margin-top: 20px;
+}

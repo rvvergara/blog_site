@@ -46,38 +46,41 @@
                     <form action="/posts/<%=post._id%>?_method=DELETE" method="POST" class="delete-button"><button class="ui basic red button" id="deleteButton">Delete</button></form>
                 </div>
             </div>
-            <div class="ui main text container">
-                <div class="ui segment">
-                    <div class="content">
-                        <div class="header">
-                            <h3>Comments</h3>
-                        </div>
-                        <a href="/posts/<%=post._id%>/comments/new" class="ui mini button">Add Comment</a>
-                        <%if(post.comments.length==0){%>
-                            <div class="description">
-                                <p>No comments yet</p>
-                            </div>
+        </div>
+        <div class="ui main text container">
+            <div class="ui segment">
+                <div class="content">
+                    <div class="header">
+                        <% let numberOfComments = ""%>
+                        <% if(post.comments.length != 0){%>
+                            <%numberOfComments = post.comments.length+" " %>
                         <%}%>
-                        <%for(let comment of post.comments){%>
-                            <div class="one column row">
-                                <div class="ui segment">
-                                    <div class="content">
-                                        <div class="header">
-                                            <h4><%=comment.author%></h4>
-                                        </div>
-                                        <div class="meta"><small><em><%=comment.created.toDateString()%></em></small></div>
-                                        <div class="description">
-                                            <p><%=comment.text%></p>
-                                        </div>
+                        <h3><%=numberOfComments%>Comments</h3>
+                    </div>
+                    <a href="/posts/<%=post._id%>/comments/new" class="ui mini button">Add Comment</a>
+                    <%if(post.comments.length==0){%>
+                        <div class="description">
+                            <p>No comments yet</p>
+                        </div>
+                    <%}%>
+                    <%for(let comment of post.comments){%>
+                        <div class="one column row">
+                            <div class="ui segment">
+                                <div class="content">
+                                    <div class="header">
+                                        <h4><%=comment.author%></h4>
+                                    </div>
+                                    <div class="meta"><small><em><%=comment.created.toDateString()%></em></small></div>
+                                    <div class="description">
+                                        <p><%=comment.text%></p>
                                     </div>
                                 </div>
                             </div>
-                        <%}%>
-                    </div>
+                        </div>
+                    <%}%>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <% include ../partials/footer %>
