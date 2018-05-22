@@ -1,4 +1,4 @@
-<% include ./partials/header %>
+<% include ../partials/header %>
 
 <div class="ui container main-content">
     <div class="ui grid">
@@ -47,7 +47,40 @@
                 </div>
             </div>
         </div>
+        <div class="ui main text container">
+            <div class="ui segment">
+                <div class="content">
+                    <div class="header">
+                        <% let numberOfComments = ""%>
+                        <% if(post.comments.length != 0){%>
+                            <%numberOfComments = post.comments.length+" " %>
+                        <%}%>
+                        <h3><%=numberOfComments%>Comments</h3>
+                    </div>
+                    <a href="/posts/<%=post._id%>/comments/new" class="ui mini button">Add Comment</a>
+                    <%if(post.comments.length==0){%>
+                        <div class="description">
+                            <p>No comments yet</p>
+                        </div>
+                    <%}%>
+                    <%for(let comment of post.comments){%>
+                        <div class="one column row">
+                            <div class="ui segment">
+                                <div class="content">
+                                    <div class="header">
+                                        <h4><%=comment.author%></h4>
+                                    </div>
+                                    <div class="meta"><small><em><%=comment.created.toDateString()%></em></small></div>
+                                    <div class="description">
+                                        <p><%-comment.text%></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <%}%>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<% include ./partials/footer %>
+<% include ../partials/footer %>

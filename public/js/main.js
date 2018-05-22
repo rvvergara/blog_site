@@ -20,7 +20,7 @@ $("#deleteButton").on("click",function(){
 
 $(document).ready(function() {
     tinymce.init({
-      selector: "#post_content",
+      selector: ".area-text",
       theme: "modern",
       paste_data_images: true,
       plugins: [
