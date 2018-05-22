@@ -45,7 +45,7 @@ app.get("/posts/new",function(req,res){
 
 app.post("/posts",function(req,res){
     // req.body.content = req.sanitize(req.body.content);
-    Post.create(req.body,function(err,post){
+    Post.create(req.body.post,function(err,post){
         if(err) res.redirect("/posts/new")
         else res.redirect("/posts");
     })
