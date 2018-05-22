@@ -45,6 +45,33 @@
                     <a href="/posts/<%=post._id%>/edit" class="ui basic violet button">Edit</a>
                     <form action="/posts/<%=post._id%>?_method=DELETE" method="POST" class="delete-button"><button class="ui basic red button" id="deleteButton">Delete</button></form>
                 </div>
+                <div class="ui segment">
+                    <div class="content">
+                        <div class="header">
+                            <h3>Comments</h3>
+                        </div>
+                        <%if(post.comments.length==0){%>
+                            <div class="description">
+                                <p>No comments yet</p>
+                            </div>
+                        <%}%>
+                        <%for(let comment of post.comments){%>
+                            <div class="one column row">
+                                <div class="ui segment">
+                                    <div class="content">
+                                        <div class="header">
+                                            <h4><%=comment.author%></h4>
+                                        </div>
+                                        <div class="meta"><small><em><%=comment.created.toDateString()%></em></small></div>
+                                        <div class="description">
+                                            <p><%=comment.text%></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <%}%>
+                    </divc>
+                </div>
             </div>
         </div>
     </div>
