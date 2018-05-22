@@ -3,6 +3,9 @@ const   express             =   require("express"),
         bodyParser          =   require("body-parser"),
         methodOverride      =   require("method-override"),
         expressSanitizer    =   require("express-sanitizer"),
+        Post                =   require("./models/post"),
+        Comment             =   require("./models/comment"),
+        seedDB              =   require("./seeds"),
         app                 =   express();
         
 //Connect to database or create it
@@ -15,31 +18,7 @@ app.use(expressSanitizer());
 app.use(express.static("public"));
 app.set("view engine","ejs");
 
-//Schema and Data Modelling for Blog Site
-
-let     postSchema      = new mongoose.Schema(
-                             {
-                                title:      String,
-                                image:      String,
-                                summary:    String,
-                                content:    String,
-                                created:    {type: Date, default:                Date.now},
-                                edited:     {type: Date, default:                Date.now},
-                            }
-                        ),
-        Post            =   mongoose.model("Post",postSchema);
-
-// Sample Data:
-
-// Post.create({
-//     title: "Test Post",
-//     image: "https://picsum.photos/450/400?random",
-//     summary: "Ex enim in enim non sunt velit exercitation.",
-//     content:"Consequat id commodo culpa aliqua laboris. Cillum tempor cillum officia exercitation ut fugiat amet id mollit. Ut anim Lorem occaecat eu aliqua consectetur anim culpa fugiat laborum. Labore id ex deserunt Lorem id ad consequat nostrud id. Voluptate dolore et consectetur proident ex qui. Ad Lorem voluptate cillum nisi mollit sunt minim laborum veniam esse officia dolor. Aliquip reprehenderit aliquip amet ut aliqua sunt non laborum."
-// },function(err,post){
-//     if(err) console.log(err)
-//     else console.log(post.title);
-// });
+seedDB(); //To remove old data and initialize new - for testing
 
 // ROUTES:
 
