@@ -52,7 +52,8 @@ app.post("/posts",function(req,res){
 
 // 4. SHOW - /posts/:id - GET - show details of clicked post - Post.findByID()
 app.get("/posts/:id",function(req,res){
-    Post.findById(req.params.id,function(err,clickedPost){
+
+    Post.findById(req.params.id).populate("comments").exec      (function(err,clickedPost){
         if(err) res.redirect("/posts")
         else res.render("posts/show",{post:clickedPost});
     });
@@ -78,13 +79,16 @@ app.put("/posts/:id",function(req,res){
     })
 });
 
-// DESTROY - /posts/:id - DELETE - Delete selected post and redirect - Post.findByIdAndRemove()
+// 7. DESTROY - /posts/:id - DELETE - Delete selected post and redirect - Post.findByIdAndRemove()
 app.delete("/posts/:id",function(req,res){
     Post.findByIdAndRemove(req.params.id,function(err){
         if(err) res.redirect("/posts/"+req.params.id)
         else res.redirect("/posts");
     })
 });
+
+// 8. NEW COMMENTS - /posts/:id/comments/new - GET - Show comment form for specific post - Post.findByID(req.params.id,callback(err,foundPost)) 
+
 
 //Turning on Node server
 app.listen(7500,function(){
