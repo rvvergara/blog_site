@@ -52,13 +52,13 @@ app.get("/",function(req,res){
 app.get("/posts",function(req,res){
     Post.find({},function(err,posts){
         if(err) console.log(err)
-        else    res.render("index",{posts:posts});
+        else    res.render("posts/index",{posts:posts});
     });
 });
 
 // 2. NEW - /posts/new - GET - show new post form - NA
 app.get("/posts/new",function(req,res){
-    res.render("new");
+    res.render("posts/new");
 });
 
 // 3. CREATE - /posts - POST - Create new post and redirect somewhere - Post.create()
@@ -66,7 +66,7 @@ app.get("/posts/new",function(req,res){
 app.post("/posts",function(req,res){
     // req.body.content = req.sanitize(req.body.content);
     Post.create(req.body,function(err,post){
-        if(err) res.redirect("new")
+        if(err) res.redirect("/posts/new")
         else res.redirect("/posts");
     })
 });
@@ -75,7 +75,7 @@ app.post("/posts",function(req,res){
 app.get("/posts/:id",function(req,res){
     Post.findById(req.params.id,function(err,clickedPost){
         if(err) res.redirect("/posts")
-        else res.render("show",{post:clickedPost});
+        else res.render("posts/show",{post:clickedPost});
     });
 });
 
@@ -84,7 +84,7 @@ app.get("/posts/:id",function(req,res){
 app.get("/posts/:id/edit",function(req,res){
     Post.findById(req.params.id,function(err,postForEdit){
         if(err) res.redirect("/posts")
-        else res.render("edit",{post:postForEdit});
+        else res.render("posts/edit",{post:postForEdit});
     })
 });
 
@@ -102,7 +102,7 @@ app.put("/posts/:id",function(req,res){
 // DESTROY - /posts/:id - DELETE - Delete selected post and redirect - Post.findByIdAndRemove()
 app.delete("/posts/:id",function(req,res){
     Post.findByIdAndRemove(req.params.id,function(err){
-        if(err) res.redirect("posts/"+req.params.id)
+        if(err) res.redirect("/posts/"+req.params.id)
         else res.redirect("/posts");
     })
 });
