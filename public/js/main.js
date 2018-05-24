@@ -15,6 +15,9 @@ $("#deleteButton").on("click",function(){
     $("#deleteModal").modal("show");
 });
 
+$("#sure-delete").on("click",function(){
+  $("form").submit();
+});
 
 // TinyMCE codes:
 

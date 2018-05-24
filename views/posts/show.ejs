@@ -43,7 +43,7 @@
                 </div>
                 <div class="show-buttons">
                     <a href="/posts/<%=post._id%>/edit" class="ui basic violet button">Edit</a>
-                    <form action="/posts/<%=post._id%>?_method=DELETE" method="POST" class="delete-button"><button class="ui basic red button" id="deleteButton">Delete</button></form>
+                    <button class="ui basic red button" id="deleteButton">Delete</button>
                 </div>
             </div>
         </div>
@@ -83,4 +83,27 @@
         </div>
     </div>
 </div>
+
+<div class="ui basic modal" id="deleteModal">
+    <div class="ui icon header">
+        <i class="trash icon"></i>
+        Delete <%=post.title%>
+    </div>
+    <div class="content">
+        <p>Are You Sure You Wish To Delete <%=post.title%>?</p>
+    </div>
+    <div class="actions">
+        <div class="ui red basic cancel inverted button">
+        <i class="remove icon"></i>
+        No
+        </div>
+        <form action="/posts/<%=post._id%>?_method=DELETE" method="POST" class="delete-button" id="sure-delete">
+            <div class="ui green ok inverted button">
+                <i class="checkmark icon"></i>
+                Yes
+            </div>
+        </form>
+    </div>
+</div>
+
 <% include ../partials/footer %>
