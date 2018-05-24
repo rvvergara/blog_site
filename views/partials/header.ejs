@@ -13,7 +13,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.13/tinymce.min.js"></script>
 </head>
 <body>
-    <header id="site-header">
-        <h1 class="ui header"><a href="/" id="main-headline"><i class="icon lightbulb outline"></i>MyThink</a></h1>
+    <header id="site-header" class="ui borderless menu">
+        <div class="ui container">
+            <h1 class="ui header">
+                <a href="/" id="main-headline">
+                    <i class="icon lightbulb outline"></i>MyThink
+                </a>
+            </h1>
+            <div class="right menu">
+                <div class="ui transparent left icon input" id="header-left-icon-input">
+                    <input type="search" name="search" placeholder="Search Posts">
+                    <i class="search icon"></i>
+                </div>
+                <a href="/login" class="item" id="login-link">Login</a>
+            </div>
+        </div>
     </header>
     
