@@ -15,7 +15,7 @@ body,html{
     font-size: 2.0em;
 }
 
-#header-left-icon-input, #login-link {
+#header-left-icon-input, .login-link {
     height: 55%;
 }
 
