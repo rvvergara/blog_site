@@ -41,7 +41,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Middleware to refer to req.user as user in templates:
+// Top Middleware to refer to req.user as user in templates:
 app.use(function(req,res,next){
     res.locals.user = req.user;
     next();
@@ -66,7 +66,7 @@ app.get("/posts",function(req,res){
 });
 
 // 2. NEW - /posts/new - GET - show new post form - NA
-app.get("/posts/new",function(req,res){
+app.get("/posts/new",isLogged,function(req,res){
     res.render("posts/new");
 });
 
@@ -124,7 +124,7 @@ COMMENT ROUTES
 */
 
 // 8. NEW COMMENTS - /posts/:id/comments/new - GET - Show comment form for specific post - Post.findByID(req.params.id,callback(err,foundPost)) 
-app.get("/posts/:id/comments/new",function(req,res){
+app.get("/posts/:id/comments/new",isLogged,function(req,res){
     Post.findById(req.params.id,function(err,foundPost){
         if(err) console.log(err)
         else res.render("comments/new",{post:foundPost});    
@@ -189,6 +189,21 @@ app.get("/logout",function(req,res){
     req.logout();
     res.redirect("/login");
 });
+
+/*
+=================
+    Middlewares:
+==================
+*/
+
+// Middleware to show route only to logged users
+function    isLogged(req,res,next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
+
 
 //Turning on Node server
 app.listen(7500,function(){
