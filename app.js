@@ -1,22 +1,51 @@
-const   express             =   require("express"),
-        mongoose            =   require("mongoose"),
-        bodyParser          =   require("body-parser"),
-        methodOverride      =   require("method-override"),
-        expressSanitizer    =   require("express-sanitizer"),
-        Post                =   require("./models/post"),
-        Comment             =   require("./models/comment"),
-        seedDB              =   require("./seeds"),
-        app                 =   express();
+const   express                 =   require("express"),
+        mongoose                =   require("mongoose"),
+        bodyParser              =   require("body-parser"),
+        methodOverride          =   require("method-override"),
+        expressSanitizer        =   require("express-sanitizer"),
+        passport                =   require("passport"),
+        LocalStrategy           =   require("passport-local"),
+        passportLocalMongoose   =   require("passport-local-mongoose"),
+        session                 =   require("express-session"),
+        Post                    =   require("./models/post"),
+        Comment                 =   require("./models/comment"),
+        User                    =   require("./models/user"),
+        seedDB                  =   require("./seeds"),
+        app                     =   express();
         
 //Connect to database or create it
 mongoose.connect("mongodb://localhost/blog_site");
 
 // Setting up app.js to use dependencies and access public dir
+app.set("view engine","ejs");
+
+// Using express-session
+app.use(session({
+    secret: "To live is Christ",
+    resave: false,
+    saveUninitialized: false,
+}));
+
+// Use basic dependencies
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 app.use(expressSanitizer());
-app.use(express.static("public"));
-app.set("view engine","ejs");
+app.use(express.static(__dirname + "/public"));
+
+// Using passport 
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Confuring passport
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// Top Middleware to refer to req.user as user in templates:
+app.use(function(req,res,next){
+    res.locals.user = req.user;
+    next();
+});
 
 // seedDB(); 
 //To remove old data and initialize new - for testing
@@ -37,7 +66,7 @@ app.get("/posts",function(req,res){
 });
 
 // 2. NEW - /posts/new - GET - show new post form - NA
-app.get("/posts/new",function(req,res){
+app.get("/posts/new",isLogged,function(req,res){
     res.render("posts/new");
 });
 
@@ -88,8 +117,14 @@ app.delete("/posts/:id",function(req,res){
     })
 });
 
+/*
+==========================================
+COMMENT ROUTES
+==========================================
+*/
+
 // 8. NEW COMMENTS - /posts/:id/comments/new - GET - Show comment form for specific post - Post.findByID(req.params.id,callback(err,foundPost)) 
-app.get("/posts/:id/comments/new",function(req,res){
+app.get("/posts/:id/comments/new",isLogged,function(req,res){
     Post.findById(req.params.id,function(err,foundPost){
         if(err) console.log(err)
         else res.render("comments/new",{post:foundPost});    
@@ -112,6 +147,63 @@ app.post("/posts/:id",function(req,res){
         }
     });
 });
+
+/*
+==========================================
+AUTHENTICATION ROUTES
+==========================================
+*/
+
+// 10. Signup route - /signup - GET - show signup form
+app.get("/signup",function(req,res){
+    res.render("signup");
+});
+
+// 11. Signup logic - /signup - POST - signup user and redirect
+app.post("/signup",function(req,res){
+    User.register(new User({username:req.body.username}),req.body.password,function(err,newUser){
+        if(err){ 
+            console.log(err);
+            return res.redirect("/signup");
+        }
+        passport.authenticate("local")(req,res,function(){
+            res.redirect("/posts");
+        });
+    });
+});
+
+// 12. Login route - /login - GET - show login form
+app.get("/login",function(req,res){
+    res.render("login");
+});
+
+// 13. Login logic - /login - POST - login user and redirect
+app.post("/login",passport.authenticate("local",({
+    successRedirect: "/posts",
+    failureRedirect: "/login",
+})),function(req,res){
+});
+
+// 14. Logout route - /logout - GET - Log user out and redirect
+app.get("/logout",function(req,res){
+    req.logout();
+    res.redirect("/login");
+});
+
+/*
+=================
+    Middlewares:
+==================
+*/
+
+// Middleware to show route only to logged users
+function    isLogged(req,res,next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
+
 
 //Turning on Node server
 app.listen(7500,function(){

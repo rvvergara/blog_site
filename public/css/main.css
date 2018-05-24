@@ -8,11 +8,19 @@ body,html{
     padding-top: 20px;
 }
 
+
 #site-header #main-headline{
-    max-width: 30%;
     display: inline-block;
     color: #003636;
     font-size: 2.0em;
+}
+
+#header-left-icon-input, .login-link {
+    height: 55%;
+}
+
+#site-header h1.ui.header{
+    margin: 0;
 }
 
 .index-post-title{
