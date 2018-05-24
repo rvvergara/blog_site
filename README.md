@@ -11,4 +11,5 @@
 <ol>
 	<li>All node packages are included in this repo. Before cloning it, install nodeJS in your system.</li>
 	<li>This repository does not include the database. Install MongoDB in your system and follow documentation to run mongod.exe and create root/data/db directory.</li>
+	<li>seedDB() at line 50 of app.js is commented by default. Uncomment this line for new installations to have initial data.</li>
 </ol>
