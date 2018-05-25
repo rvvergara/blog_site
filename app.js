@@ -131,8 +131,8 @@ app.get("/posts/:id/comments/new",isLogged,function(req,res){
     });
 });
 
-// 9. CREATE COMMENT - /posts/:id - POST - Create comment and redirect to post page - Post.findById(req.params.id,callback(err,foundPost))
-app.post("/posts/:id",function(req,res){
+// 9. CREATE COMMENT - /posts/:id/comments - POST - Create comment and redirect to post page - Post.findById(req.params.id,callback(err,foundPost))
+app.post("/posts/:id/comments",function(req,res){
     Post.findById(req.params.id,function(err,foundPost){
         if(err) console.log(err)
         else{
