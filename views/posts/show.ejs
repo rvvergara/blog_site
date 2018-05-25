@@ -6,7 +6,10 @@
             <div class="column">
                 <h1 class="ui header" id="show-header"><%= post.title %></h1>
                 <div class="ui top attached">
-                    <div class="content">
+                    <div class="content" class="author-info">
+                        by: <%=post.author.username%>
+                    </div>
+                    <div class="content time-stamps">
                         <% let createdMinutes = post.created.getMinutes()%>
                         <%if(createdMinutes<10){%>
                             <%createdMinutes = "0"+createdMinutes%>
@@ -17,7 +20,7 @@
                         <%}%>
                         <span>Created: <em><%=post.created.toDateString()%>, <%=post.created.getHours()%>:<%=createdMinutes%></em></span>
                         <span><a href="/posts/<%=post._id%>/edit"><i class="pencil icon"></i></a></span>
-                        <span>Last edited: <em><%=post.edited.toDateString()%>, <%=post.edited.getHours()%>:<%=editedMinutes%></em></span>
+                        <span>Edited: <em><%=post.edited.toDateString()%>, <%=post.edited.getHours()%>:<%=editedMinutes%></em></span>
                     </div>
                     <div class="content show-summary">
                         <p class="post-summary-show"><%=post.summary%></p>
@@ -70,7 +73,7 @@
                             <div class="ui segment">
                                 <div class="content">
                                     <div class="header">
-                                        <h4><%=comment.author%></h4>
+                                        <h4><%=comment.author.username%></h4>
                                     </div>
                                     <div class="meta"><small><em><%=comment.created.toDateString()%></em></small></div>
                                     <div class="description">
