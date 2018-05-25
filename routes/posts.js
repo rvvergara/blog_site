@@ -19,10 +19,20 @@ router.get("/new",isLogged,function(req,res){
 
 router.post("/",isLogged,function(req,res){
     // req.body.content = req.sanitize(req.body.content);
-    Post.create(req.body.post,function(err,post){
-        if(err) res.redirect("/posts/new")
-        else res.redirect("/posts");
-    })
+    let postToAdd           =   req.body.post;
+        postToAdd.author    =   {
+                                id: req.user._id,
+                                username: req.user.username,
+                                };
+    Post.create(postToAdd,function(err,newPost){
+        if(err){
+            console.log(err);
+            res.redirect("/posts/new");
+        }
+        else{
+            res.redirect("/posts");
+        }
+    });
 });
 
 // Middleware to show route only to logged users

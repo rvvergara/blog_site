@@ -15,10 +15,21 @@ router.get("/new",isLogged,function(req,res){
 // 2. CREATE COMMENT - /posts/:id/comments - POST - Create comment and redirect to post page - Post.findById(req.params.id,callback(err,foundPost))
 router.post("/",function(req,res){
     Post.findById(req.params.id,function(err,foundPost){
-        if(err) console.log(err)
+        if(err){ 
+            console.log(err);
+            res.redirect("/posts/"+req.params.id+"/comments/new");
+        }
         else{
-            Comment.create(req.body.comment,function(err,newComment){
-                if(err) console.log(err)
+            let comment         =   req.body.comment;
+                comment.author  =   {
+                                        id: req.user._id,
+                                        username: req.user.username,
+                                    };
+            Comment.create(comment,function(err,newComment){
+                if(err){ 
+                    console.log(err);
+                    res.redirect("/posts/"+req.params.id);
+                }
                 else{
                     foundPost.comments.push(newComment);
                     foundPost.save();
