@@ -19,7 +19,11 @@
                             <%editedMinutes = "0"+editedMinutes%>
                         <%}%>
                         <span>Created: <em><%=post.created.toDateString()%>, <%=post.created.getHours()%>:<%=createdMinutes%></em></span>
-                        <span><a href="/posts/<%=post._id%>/edit"><i class="pencil icon"></i></a></span>
+                        <%if(user && post.author.username == user.username){%>
+                            <span><a href="/posts/<%=post._id%>/edit"><i class="pencil icon"></i></a></span>
+                        <%}else{%>
+                            <span><i class="pencil icon"></i></span>
+                        <%}%>
                         <span>Edited: <em><%=post.edited.toDateString()%>, <%=post.edited.getHours()%>:<%=editedMinutes%></em></span>
                     </div>
                     <div class="content show-summary">
@@ -44,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <%if(user){%>
+                <%if(user && post.author.username == user.username){%>
                     <div class="show-buttons">
                         <a href="/posts/<%=post._id%>/edit" class="ui basic violet button">Edit</a>
                         <button class="ui basic red button" id="deleteButton">Delete</button>
