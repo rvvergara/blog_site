@@ -1,5 +1,6 @@
 const   express     =   require("express"),
         Post        =   require("../models/post"),
+        middleware  =   require("../middleware"),
         router      =   express.Router({mergeParams:true});
 
 // 1. SHOW - /posts/:id - GET - show details of clicked post - Post.findByID()
@@ -13,7 +14,7 @@ router.get("/",function(req,res){
 
 // 2. EDIT - /posts/:id/edit - GET - show edit form for clicked post - Post.findByIdAndUpdate()
 
-router.get("/edit",isLogged,function(req,res){
+router.get("/edit",middleware.isLogged,middleware.isPostOwner,function(req,res){
     Post.findById(req.params.id,function(err,postForEdit){
         if(err) res.redirect("/posts")
         else res.render("posts/edit",{post:postForEdit});
@@ -21,7 +22,7 @@ router.get("/edit",isLogged,function(req,res){
 });
 
 // 3. UPDATE - /posts/:id - PUT - Update post and redirect somewhere - Post.findByIdAndUpdate()
-router.put("/",isLogged,function(req,res){
+router.put("/",middleware.isLogged,middleware.isPostOwner,function(req,res){
     // req.body.content = req.sanitize
     // (req.body.content);
     req.body.edited = new Date();    
@@ -32,19 +33,11 @@ router.put("/",isLogged,function(req,res){
 });
 
 // 4. DESTROY - /posts/:id - DELETE - Delete selected post and redirect - Post.findByIdAndRemove()
-router.delete("/",isLogged,function(req,res){
+router.delete("/",middleware.isLogged,middleware.isPostOwner,function(req,res){
     Post.findByIdAndRemove(req.params.id,function(err){
         if(err) res.redirect("/posts/"+req.params.id)
         else res.redirect("/posts");
     })
 });
-
-// Middleware to show route only to logged users
-function    isLogged(req,res,next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
 
 module.exports  = router;
