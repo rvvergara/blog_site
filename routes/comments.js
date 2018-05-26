@@ -40,6 +40,35 @@ router.post("/",function(req,res){
     });
 });
 
+// 3. EDIT COMMENT - "/posts/:id/comments/:comment_id/edit" - GET - show edit form for selected comment - Comment.findById()
+router.get("/:comment_id/edit",function(req,res){
+    Post.findById(req.params.id,function(err,foundPost){
+        if(err) res.redirect("back")
+        else{
+            Comment.findById(req.params.comment_id,function(err,foundComment){
+                if(err) res.redirect("back")
+                else res.render("comments/edit",{post:foundPost,comment:foundComment});
+            });
+        }
+    });
+});
+
+// 4. UPDATE COMMENT - "/posts/:id/comments/:comment_id" - PUT - update comment and redirect - Comment.findByIdAndUpdate(req.params.comment_id)
+router.put("/:comment_id",function(req,res){
+    Comment.findByIdAndUpdate(req.params.comment_id,req.body.comment,function(err,updatedComment){
+        if(err) res.redirect("back")
+        else res.redirect("/posts/"+req.params.id);
+    });
+});
+
+// 5. DELETE COMMENT - "/posts/:id/comments/:comment_id" - DELETE - delete comment and redirect - Comment.findByIdAndRemove(req.params.comment_id)
+router.delete("/:comment_id",function(req,res){
+    Comment.findByIdAndRemove(req.params.comment_id,function(err){
+        if(err) res.redirect("back")
+        else res.redirect("back");
+    });
+});
+
 // Middleware to show route only to logged users
 function    isLogged(req,res,next){
     if(req.isAuthenticated()){
