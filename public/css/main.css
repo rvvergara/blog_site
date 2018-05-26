@@ -97,3 +97,7 @@ body,html{
 .ui.segment .ui.segment{
     margin-top: 20px;
 }
+
+.text.comment-text{
+    padding-top:30px;
+}

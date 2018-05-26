@@ -64,7 +64,14 @@
                     <% if(post.comments.length != 0){%>
                         <%noOfComments = post.comments.length+" " %>
                     <%}%>                    
-                    <h3 class="dividing header"><%=noOfComments%>Comments</h3>
+                    <%let addComment = "/login"%>
+                    <%if(user){%>
+                        <%addComment = "#comment-field";%>
+                    <%}%>
+                    <h3 class="dividing header">
+                        <%=noOfComments%>Comments
+                        <a href="<%=addComment%>" class="ui  mini silver button">Add Comment</a>
+                    </h3>
                     <%if(post.comments.length==0){%>
                         <div class="description">
                             <p>No comments yet</p>
@@ -82,7 +89,7 @@
                                             <div class="metadata">
                                                 <span class="date"><%=comment.created.toDateString()%></span>
                                             </div>
-                                            <div class="text">
+                                            <div class="text comment-text">
                                                 <%-comment.text%>
                                             </div>
                                             <div class="actions">
@@ -110,8 +117,8 @@
                     <!-- COMMENT LIST END -->
                     <%if(user){%>
                         <form class="ui reply form" method="POST" action="/posts/<%=post._id%>/comments">
-                            <div class="field">
-                                    <textarea name="comment[text]" placeholder="Write a comment..."></textarea>
+                            <div class="field" id="comment-field">
+                                    <textarea name="comment[text]" placeholder="Write a comment..." class="area-text"></textarea>
                             </div>
                             <input type="submit" class="ui blue submit icon button" value="Add Comment">
                         </form>
@@ -122,7 +129,7 @@
         <!-- UI COMMENT END -->
     </div>
 </div>
-
+<!-- DELETE POST MODAL -->
 <div class="ui basic modal" id="deletePostModal">
     <div class="ui icon header">
         <i class="trash icon"></i>
