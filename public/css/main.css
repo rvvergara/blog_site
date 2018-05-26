@@ -73,8 +73,15 @@ body,html{
     padding-top: 30px; 
 }
 
-.delete-button{
+.delete-form{
     display: inline;
+}
+
+.delete-icon.icon{
+    float: right;
+}
+.delete-icon.icon:hover{
+    cursor: pointer;
 }
 
 .index-description{

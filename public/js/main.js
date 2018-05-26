@@ -11,13 +11,19 @@ $(window).bind('mousewheel', function(event) {
     }
 });
 
-$("#deleteButton").on("click",function(){
-    $("#deleteModal").modal("show");
+$("#deletePostButton").on("click",function(){
+    $("#deletePostModal").modal("show");
 });
 
-$("#sure-delete").on("click",function(){
-  $("form").submit();
+$("#delete-post").on("click",function(){
+  $("#delete-post").submit();
 });
+
+$("#delete-comment").on("click",function(){
+  $("#delete-comment").submit();
+});
+
+
 
 // TinyMCE codes:
 
