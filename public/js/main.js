@@ -23,6 +23,14 @@ $(".delete-form").on("click",function(){
   $(this).submit();
 });
 
+$('.message .close')
+  .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade')
+    ;
+  });
+
 // TinyMCE codes:
 
 $(document).ready(function() {
