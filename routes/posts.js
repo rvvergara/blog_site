@@ -6,7 +6,10 @@ const   express     =   require("express"),
 // 1. INDEX - /posts/ - GET - list all posts - Post.find() 
 router.get("/",function(req,res){
     Post.find({},function(err,posts){
-        if(err) console.log(err)
+        if(err){
+            req.flash("error","Cannot load posts at the moment")
+             console.log(err);
+            }
         else    res.render("posts/index",{posts:posts});
     });
 });
@@ -27,11 +30,12 @@ router.post("/",middleware.isLogged,function(req,res){
                                 };
     Post.create(postToAdd,function(err,newPost){
         if(err){
-            console.log(err);
+            req.flash("error","Error encountered while creating post. Please try again");
             res.redirect("/posts/new");
         }
         else{
-            res.redirect("/posts");
+            req.flash("success","Successfully created blog post!"); 
+            res.redirect("/posts/"+newPost.id);
         }
     });
 });

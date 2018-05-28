@@ -48,7 +48,7 @@
             <div class="ui negative message">
                 <i class="close icon"></i>
                 <div class="header">
-                    STOP!
+                    SORRY YOU CANNOT PROCEED!
                 </div>
                 <p><%=error%></p>
             </div>
@@ -58,6 +58,15 @@
                 <i class="close icon"></i>
                 <div class="header">
                     Success!
+                </div>
+                <p><%=success%></p>
+            </div>
+        <%}%>
+        <%if(logout && logout.length>0){%>
+            <div class="ui warning message">
+                <i class="close icon"></i>
+                <div class="header">
+                    You have been logged out!
                 </div>
                 <p><%=success%></p>
             </div>

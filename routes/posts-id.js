@@ -6,8 +6,11 @@ const   express     =   require("express"),
 // 1. SHOW - /posts/:id - GET - show details of clicked post - Post.findByID()
 router.get("/",function(req,res){
 
-    Post.findById(req.params.id).populate("comments").exec      (function(err,clickedPost){
-        if(err) res.redirect("/posts")
+    Post.findById(req.params.id).populate("comments").exec(function(err,clickedPost){
+        if(err){
+            req.flash("error","Cannot find post you were looking for!");
+            res.redirect("/posts");
+        }
         else res.render("posts/show",{post:clickedPost});
     });
 });
@@ -16,7 +19,10 @@ router.get("/",function(req,res){
 
 router.get("/edit",middleware.isLogged,middleware.isPostOwner,function(req,res){
     Post.findById(req.params.id,function(err,postForEdit){
-        if(err) res.redirect("/posts")
+        if(err){
+            req.flash("error","Cannot find post");
+             res.redirect("/posts");
+            }
         else res.render("posts/edit",{post:postForEdit});
     })
 });
@@ -27,16 +33,26 @@ router.put("/",middleware.isLogged,middleware.isPostOwner,function(req,res){
     // (req.body.content);
     req.body.edited = new Date();    
     Post.findByIdAndUpdate(req.params.id,req.body,function(err){
-        if(err) res.redirect("/posts/"+req.params.id+"/edit")
-        else res.redirect("/posts/"+req.params.id);
+        if(err){
+            req.flash("error","Error in updating post. Please try again!");
+            res.redirect("/posts/"+req.params.id+"/edit");
+        }
+        else{
+            req.flash("success","Successfully updated post!");
+            res.redirect("/posts/"+req.params.id);}
     })
 });
 
 // 4. DESTROY - /posts/:id - DELETE - Delete selected post and redirect - Post.findByIdAndRemove()
 router.delete("/",middleware.isLogged,middleware.isPostOwner,function(req,res){
     Post.findByIdAndRemove(req.params.id,function(err){
-        if(err) res.redirect("/posts/"+req.params.id)
-        else res.redirect("/posts");
+        if(err){ 
+            req.flash("error","Cannot find post. It may have already been deleted!");
+            res.redirect("/posts/"+req.params.id)
+        }
+        else{
+            req.flash("success","Post successfully deleted!")
+            res.redirect("/posts");}
     })
 });
 
