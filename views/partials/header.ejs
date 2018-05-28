@@ -43,4 +43,25 @@
             </div>
         </div>
     </header>
+    <div class="ui container">
+        <%if(error && error.length>0){%>
+            <div class="ui negative message">
+                <i class="close icon"></i>
+                <div class="header">
+                    STOP!
+                </div>
+                <p><%=error%></p>
+            </div>
+        <%}%>
+        <%if(success && success.length>0){%>
+            <div class="ui success message">
+                <i class="close icon"></i>
+                <div class="header">
+                    Success!
+                </div>
+                <p><%=success%></p>
+            </div>
+        <%}%>
+        
+    </div>
     
