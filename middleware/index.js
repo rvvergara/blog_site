@@ -10,18 +10,22 @@ function isLogged(req,res,next){
     if(req.isAuthenticated()){
         next();
     }else{
+        req.flash("error","You must be logged in to do that!");
         res.redirect("/login");
     }
 }                        
 // Check if user is author of Post
 function isPostOwner(req,res,next){
     Post.findById(req.params.id,function(err,foundPost){
-        if(err) res.redirect("back")
+        if(err){
+            req.flash("error","Cannot find post");
+            res.redirect("back")}
         else{
             if(foundPost.author.id.equals(req.user._id)){
                 next();
             }else{
-                res.redirect("back");
+                req.flash("error","You don't have permission to do that!");
+                res.redirect("/posts/"+foundPost.id);
             }
         }
     });
@@ -34,6 +38,7 @@ function isCommentOwner(req,res,next){
             if(foundComment.author.id.equals(req.user._id)){
                 next();
             }else{
+                req.flash("error","You don't have permission to do that!");
                 res.redirect("back");
             }
         }

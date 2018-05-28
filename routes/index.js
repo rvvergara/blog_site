@@ -22,10 +22,11 @@ router.get("/signup",function(req,res){
 router.post("/signup",function(req,res){
     User.register(new User({username:req.body.username}),req.body.password,function(err,newUser){
         if(err){ 
-            console.log(err);
+            req.flash("error",err.message);
             return res.redirect("/signup");
         }
         passport.authenticate("local")(req,res,function(){
+            req.flash("success","Welcome to MyThink "+req.user.username+"! We are glad to have you as a new member!");
             res.redirect("/posts");
         });
     });
@@ -38,14 +39,21 @@ router.get("/login",function(req,res){
 
 // 5. Login logic - /login - POST - login user and redirect
 router.post("/login",passport.authenticate("local",({
-    successRedirect: "/posts",
-    failureRedirect: "/login",
-})),function(req,res){
-});
+            // successRedirect: "/posts",
+            failureRedirect: "/login",
+            failureFlash: true,
+            }
+        )
+    ),function(req,res){
+        req.flash("success","Welcome to MyThink "+req.user.username+"!");
+        res.redirect("/posts");
+    }
+);
 
 // 6. Logout route - /logout - GET - Log user out and redirect
 router.get("/logout",function(req,res){
     req.logout();
+    req.flash("success","You have been logged out!");
     res.redirect("/login");
 });
 

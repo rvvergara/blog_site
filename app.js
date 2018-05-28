@@ -1,5 +1,6 @@
 const   express                 =   require("express"),
         mongoose                =   require("mongoose"),
+        flash                   =   require("connect-flash"),
         bodyParser              =   require("body-parser"),
         methodOverride          =   require("method-override"),
         expressSanitizer        =   require("express-sanitizer"),
@@ -34,6 +35,7 @@ app.use(session({
 // Use basic dependencies
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
+app.use(flash());
 app.use(expressSanitizer());
 app.use(express.static(__dirname + "/public"));
 
@@ -49,6 +51,9 @@ passport.deserializeUser(User.deserializeUser());
 // Top Middleware to refer to req.user as user in templates:
 app.use(function(req,res,next){
     res.locals.user = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.logout = req.flash("logout");
+    res.locals.success = req.flash("success");
     next();
 });
 

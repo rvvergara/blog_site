@@ -19,11 +19,17 @@ $("#delete-post").on("click",function(){
   $("#delete-post").submit();
 });
 
-$("#delete-comment").on("click",function(){
-  $("#delete-comment").submit();
+$(".delete-form").on("click",function(){
+  $(this).submit();
 });
 
-
+$('.message .close')
+  .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade')
+    ;
+  });
 
 // TinyMCE codes:
 

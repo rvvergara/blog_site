@@ -88,12 +88,16 @@ body,html{
     margin-bottom: 20px;
 }
 
-.ui.main.text.container>.ui.segment{
+/* .ui.main.text.container>.ui.segment{
     border: 0;
     box-shadow: none;
     -webkit-box-shadow: none;
-}
+} */
 
 .ui.segment .ui.segment{
     margin-top: 20px;
+}
+
+.text.comment-text{
+    padding-top:30px;
 }
