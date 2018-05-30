@@ -30,6 +30,9 @@
                     </div>
                     <div class="content index-content">
                         <h2 class="header index-post-title"><a href="/posts/<%=posts[i]._id%>" class="index-post-title"><%=posts[i].title%></a></h2>
+                        <div class="meta">
+                            <span class="user index-author"><%=posts[i].author.username%></span>
+                        </div>
                         <div class="meta index-created-date">
                             <span><em><%=posts[i].created.toDateString()%></em></span>
                         </div>

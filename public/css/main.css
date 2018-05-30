@@ -8,7 +8,6 @@ body,html{
     padding-top: 20px;
 }
 
-
 #site-header #main-headline{
     display: inline-block;
     color: #003636;
@@ -100,4 +99,9 @@ body,html{
 
 .text.comment-text{
     padding-top:30px;
+}
+
+.index-author{
+    color:#484442;
+    font-weight: bold;
 }
