@@ -11,7 +11,7 @@ let     postSchema      = new mongoose.Schema(
                         },
                         username: String,
                     },
-       image:      String,
+       image:      {type: String, default:"https://picsum.photos/458/354?image=1062"},
        summary:    String,
        content:    String,
        created:    {type: Date, default:  Date.now},             
