@@ -21,4 +21,13 @@ B. For deployed sites on Heroku or other servers:
 	<li>Follow your web service provider's instruction on creating space for app</li>
 	<li>Push repo to web server</li>
 	<li>Use mLab to create database that will be used by app (please use your own database username and password in connecting mongoose to mLab database by editing line 24 of app.js file)</li>
+	<li>Run in local/development environment command line:
+		<pre>
+			<code>export DATABASEURL="mongodb://localhost/blog_site"</code>
+		</pre>
+		and...
+		<pre>
+			<code>heroku config:set DATABASEURL="mongodb://<dbuser>:<dbpassword>@ds141320.mlab.com:41320/blog_site"
+		</pre>
+	</li>
 </ol>
