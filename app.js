@@ -12,7 +12,14 @@ const   express                 =   require("express"),
         Comment                 =   require("./models/comment"),
         User                    =   require("./models/user"),
         seedDB                  =   require("./seeds"),
-        app                     =   express();
+        app                     =   express(),
+        // environment variable for database - first do in commandline:
+        // export DATABASEURL = mongodb://localhost/<database name>
+        // run in command line: heroku config:set  DATABASEURL = "mongodb://<dbuser>:<dbpassword>@ds141320.mlab.com:41320/blog_site"
+        // process.env is the environment object on whic app runs
+        // then declare below variable
+        // 
+        url                     =   process.env.DATABASEURL || "mongodb://localhost/blog_site";
         // Routes:
 const   postRoutes              =   require("./routes/posts"),
         postIdRoutes            =   require("./routes/posts-id"),
@@ -20,8 +27,7 @@ const   postRoutes              =   require("./routes/posts"),
         indexRoutes             =   require("./routes/index");
         
 //Connect to database or create it
-// mongoose.connect("mongodb://localhost/blog_site");
-mongoose.connect("mongodb://<dbusername>:<dbpassword>@ds141320.mlab.com:41320/blog_site");
+mongoose.connect(url);
 
 // Setting up app.js to use dependencies and access public dir
 app.set("view engine","ejs");
