@@ -21,7 +21,7 @@ const   postRoutes              =   require("./routes/posts"),
         
 //Connect to database or create it
 // mongoose.connect("mongodb://localhost/blog_site");
-mongoose.connect("mongodb://rvvergara:billionaire1@ds141320.mlab.com:41320/blog_site");
+mongoose.connect("mongodb://<dbusername>:<dbpassword>@ds141320.mlab.com:41320/blog_site");
 
 // Setting up app.js to use dependencies and access public dir
 app.set("view engine","ejs");
