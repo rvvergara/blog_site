@@ -5,10 +5,10 @@
         New Post
     </h1>
     <form action="/posts" method="POST" class="ui form">
-        <div class="field"><input type="text" name="post[title]" id="post_title" placeholder="Post Title"></div>
-        <div class="field"><input type="text" name="post[image]" id="post_image" placeholder="Image URL"></div>
+        <div class="field"><input type="text" name="post[title]" id="post_title" placeholder="Post Title" required></div>
+        <div class="field"><input type="text" name="post[image]" id="post_image" placeholder="Image URL" required></div>
         <div class="field">
-            <input type="text" name="post[summary]" id="post_summary" placeholder="Summary of post">
+            <input type="text" name="post[summary]" id="post_summary" placeholder="Summary of post" required>
         </div>
         <div class="field"><textarea name="post[content]" class="area-text" cols="50" rows="50" placeholder="Write your thoughts..."></textarea></div>
         <input type="submit" value="Add Post" class="ui basic blue button">
