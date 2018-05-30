@@ -16,7 +16,9 @@ A. For Locally Hosted :
 	<li>seedDB() at line 50 of app.js is commented by default. Uncomment this line for new installations to have initial data.</li>
 </ol>
 B. For deployed sites on Heroku or other servers:
-<li>Fork this repository</li>
-<li>Follow your web service provider's instruction on creating space for app</li>
-<li>Push repo to web server</li>
-<li>Use mLab to create database that will be used by app (please use your own database username and password in connecting mongoose to mLab database by editing line 24 of app.js file)</li>
+<ol>
+	<li>Fork this repository</li>
+	<li>Follow your web service provider's instruction on creating space for app</li>
+	<li>Push repo to web server</li>
+	<li>Use mLab to create database that will be used by app (please use your own database username and password in connecting mongoose to mLab database by editing line 24 of app.js file)</li>
+</ol>
