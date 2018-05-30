@@ -67,7 +67,7 @@ app.use("/posts/:id/comments",commentRoutes);
 //To remove old data and initialize new - for testing
 
 //Turning on Node server
-app.listen(7500,function(){
+app.listen(process.env.PORT||7500,function(){
     console.log("Blog server running at port 7500");
 });
 
