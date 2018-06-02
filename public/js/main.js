@@ -2,6 +2,7 @@
 
 $(".ui.dropdown").dropdown();
 
+// To fix navbar on top when mouse scrolls down
 $(window).bind('mousewheel', function(event) {
     if (event.originalEvent.wheelDelta >= 0) {
         $("#top-nav").removeClass("fixed");
@@ -11,18 +12,17 @@ $(window).bind('mousewheel', function(event) {
     }
 });
 
+// Show a modal when post author clicks 'delete post' button
 $("#deletePostButton").on("click",function(){
     $("#deletePostModal").modal("show");
 });
 
-$("#delete-post").on("click",function(){
-  $("#delete-post").submit();
-});
-
+//Delete confirmation button inside modal
 $(".delete-form").on("click",function(){
   $(this).submit();
 });
 
+// Fading out flash messages when close button is clicked
 $('.message .close')
   .on('click', function() {
     $(this)
@@ -31,7 +31,7 @@ $('.message .close')
     ;
   });
 
-// TinyMCE codes:
+// TinyMCE editor initialization:
 
 $(document).ready(function() {
     tinymce.init({
