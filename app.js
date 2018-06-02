@@ -13,15 +13,12 @@ const   express                 =   require("express"),
         User                    =   require("./models/user"),
         seedDB                  =   require("./seeds"),
         app                     =   express(),
-        // environment variable for database - first do in commandline:
-        // export DATABASEURL = mongodb://localhost/<database name>
-        // run in command line: heroku config:set  DATABASEURL = "mongodb://<dbuser>:<dbpassword>@ds141320.mlab.com:41320/blog_site"
-        // process.env is the environment object on whic app runs
+        // process.env is the environment object on which app runs
         // then declare below variable
         // 
-        url                     =   process.env.DATABASEURL || "mongodb://localhost/blog_site";
+        url                     =   process.env.DATABASEURL || "mongodb://localhost/blog_site",
         // Routes:
-const   postRoutes              =   require("./routes/posts"),
+        postRoutes              =   require("./routes/posts"),
         postIdRoutes            =   require("./routes/posts-id"),
         commentRoutes           =   require("./routes/comments"),
         indexRoutes             =   require("./routes/index");
@@ -41,21 +38,21 @@ app.use(session({
 
 // Use basic dependencies
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(methodOverride("_method"));
-app.use(flash());
-app.use(expressSanitizer());
-app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method")); //to use PUT & DELETE methods (html only allows GET and PUSH)
+app.use(flash()); 
+app.use(expressSanitizer()); //to remove <script> tags from user inputs
+app.use(express.static(__dirname + "/public")); //to tell app to use public directory for static files (css and js)
 
 // Using passport 
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Confuring passport
+// Configuring passport
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Top Middleware to refer to req.user as user in templates:
+// Middleware to refer to refer user and flash messages to templates:
 app.use(function(req,res,next){
     res.locals.user = req.user;
     res.locals.error = req.flash("error");
