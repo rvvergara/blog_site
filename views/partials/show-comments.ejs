@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="ui main text container">
+        <div class="ui comments">
+            <% let noOfComments = ""%>
+            <% if(post.comments.length != 0){%>
+                <%noOfComments = post.comments.length+" " %>
+            <%}%>                    
+            <%let addComment = "/login"%>
+            <%if(user){%>
+                <%addComment = "#comment-field";%>
+            <%}%>
+            <h3 class="dividing header">
+                <%=noOfComments%>Comments
+                <a href="<%=addComment%>" class="ui  mini silver button">Add Comment</a>
+            </h3>
+            <%if(post.comments.length==0){%>
+                <div class="description">
+                    <p>No comments yet</p>
+                </div>
+            <%}%>
+            <!-- COMMENT LIST -->
+            <%for(let comment of post.comments){%>
+                <div class="ui segment">
+                    <div class="comment">
+                        <div class="ui grid">
+                            <div class="fourteen wide column">
+                                <a href="#" class="avatar"><img src="https://semantic-ui.com/images/avatar/small/matt.jpg"></a>
+                                <div class="content">
+                                    <a href="#" class="author"><%=comment.author.username%></a>
+                                    <div class="metadata">
+                                        <span class="date"><%=comment.created.toDateString()%></span>
+                                    </div>
+                                    <div class="text comment-text">
+                                        <%-comment.text%>
+                                    </div>
+                                    <div class="actions">
+                                        <a href="#" class="reply">Reply</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <%if(user && comment.author.id.equals(user.id)){%>
+                                <div class="two wide column">
+                                        <!-- Delete Comment Button -->
+                                        <div class="row">
+                                            <form action="/posts/<%=post.id%>/comments/<%=comment.id%>?_method=DELETE" method="POST" id="delete-comment" class="delete-form">
+                                                <i class="window red trash icon right floated delete-icon"></i>
+                                            </form><!--End of delete comment-->
+                                        </div>
+                                        <div class="row">
+                                            <a href="/posts/<%=post.id%>/comments/<%=comment._id%>/edit"><i class="pink pencil icon"></i></a>
+                                        </div>
+                                    </div>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
+            <%}%>
+            <!-- COMMENT LIST END -->
+            <%if(user){%>
+                <form class="ui reply form" method="POST" action="/posts/<%=post._id%>/comments">
+                    <div class="field" id="comment-field">
+                            <textarea name="comment[text]" placeholder="Write a comment..." class="area-text"></textarea>
+                    </div>
+                    <input type="submit" class="ui blue submit icon button" value="Add Comment">
+                </form>
+            <%}%>
+        </div>
+    </div>
+</div>

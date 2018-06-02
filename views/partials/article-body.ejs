@@ -1,0 +1,17 @@
+<div class="one column row">
+        <div class="ui main text container">
+            <div class="column">
+                <div class="ui top attached">
+                    <div class="description post-content">
+                        <%-post.content%>
+                    </div>
+                </div>
+            </div>
+            <%if(user && post.author.username == user.username){%>
+                <div class="show-buttons">
+                    <a href="/posts/<%=post._id%>/edit" class="ui basic violet button">Edit</a>
+                    <button class="ui basic red button" id="deletePostButton">Delete</button>
+                </div>    
+            <%}%>
+        </div>
+    </div>

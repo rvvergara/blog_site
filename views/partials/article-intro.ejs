@@ -1,0 +1,37 @@
+<div class="stackable two column row">
+        <div class="column">
+            <h1 class="ui header" id="show-header"><%= post.title %></h1>
+            <div class="ui top attached">
+                <div class="content" class="author-info">
+                    by: <%=post.author.username%>
+                </div>
+                <div class="content time-stamps">
+                    <% let createdMinutes = post.created.getMinutes()%>
+                    <%if(createdMinutes<10){%>
+                        <%createdMinutes = "0"+createdMinutes%>
+                    <%}%>
+                    <% let editedMinutes = post.edited.getMinutes()%>
+                    <%if(editedMinutes<10){%>
+                        <%editedMinutes = "0"+editedMinutes%>
+                    <%}%>
+                    <span>Created: <em><%=post.created.toDateString()%>, <%=post.created.getHours()%>:<%=createdMinutes%></em></span>
+                    <%if(user && post.author.username == user.username){%>
+                        <span><a href="/posts/<%=post._id%>/edit"><i class="pencil icon"></i></a></span>
+                    <%}else{%>
+                        <span><i class="pencil icon"></i></span>
+                    <%}%>
+                    <span>Edited: <em><%=post.edited.toDateString()%>, <%=post.edited.getHours()%>:<%=editedMinutes%></em></span>
+                </div>
+                <div class="content show-summary">
+                    <p class="post-summary-show"><%=post.summary%></p>
+                </div>
+            </div>                
+        </div>
+        <div class="column">
+            <div class="ui top attached">
+                <div class="item">
+                    <img src="<%=post.image%>" class="ui centered rounded image">
+                </div>
+            </div>
+        </div>
+    </div>
