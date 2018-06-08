@@ -1,5 +1,7 @@
 <h1>RESTful Blog_App</h1>
 
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Great%20RESTful%20App%20Example&url=https://github.com/rvvergara/blog_site&via=coachryanv&hashtags=nodejs,javascript,mongo,web-developer,restful-app)
+
 <p>First ever full-stack functional app I made.</p>
 <p>I used NodeJS and ExpressJS in the backend; Semantic-UI and its dependency, jQuery, for the frontent.</p>
 <p>All pictures are credited to <a href="https://picsum.photos">Lorem Picsum Images</a>.</p>
